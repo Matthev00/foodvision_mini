@@ -1,9 +1,14 @@
-import sys
-sys.path.append("E:/projekty python/PyTorch course/going_modular")
+from torch import nn
+import torchvision
+import torch
 
-from torch import nn # noqa 5501
-import utils # noqa 5501
-import torchvision # noqa 5501
+
+def set_seeds(seed: int = 42):
+
+    # Set the seed for general torch operations
+    torch.manual_seed(seed)
+    # Set the seed for CUDA torch operations (ones that happen on the GPU)
+    torch.cuda.manual_seed(seed)
 
 
 def create_effnetb2(out_features,
@@ -15,7 +20,7 @@ def create_effnetb2(out_features,
     for param in model.features.parameters():
         param.requires_grad = False
 
-    utils.set_seeds(42)
+    set_seeds(42)
 
     # # Set cllasifier to suit problem
     model.classifier = nn.Sequential(
